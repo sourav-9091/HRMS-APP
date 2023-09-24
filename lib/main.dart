@@ -6,7 +6,6 @@ import 'package:hrms/logic/email_bloc/email_bloc.dart';
 import 'package:hrms/screens/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hrms/screens/model/user.dart';
 import 'repositories/repositories.dart';
 import 'screens/auth/intro_screen.dart';
 import 'package:hrms/style/theme.dart' as Style;
@@ -14,11 +13,11 @@ import 'package:hrms/style/theme.dart' as Style;
 void main() async {
   await Hive.initFlutter();
 
-  var box = await Hive.openBox('data');
+  await Hive.openBox('data');
   final userRepository = UserRepository();
 
-  final _MyBox = Hive.box('data');
-  _MyBox.put("userRepository", userRepository);
+  final dataBox = Hive.box('data');
+  dataBox.put("userRepository", userRepository);
   runApp(
     MultiBlocProvider(
       providers: [
@@ -49,8 +48,6 @@ class MainPageRoute extends StatefulWidget {
 class _MainPageRouteState extends State<MainPageRoute> {
   @override
   void initState() {
-    final _MyBox = Hive.box('data');
-    _MyBox.put("baseUrl", "3.232.33.84");
     super.initState();
   }
 
@@ -76,10 +73,10 @@ class _MainPageRouteState extends State<MainPageRoute> {
               body: Container(
                 color: Colors.white,
                 width: MediaQuery.of(context).size.width,
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
+                  children: <Widget>[
                     SizedBox(
                       height: 25.0,
                       width: 25.0,
@@ -98,10 +95,10 @@ class _MainPageRouteState extends State<MainPageRoute> {
             body: Container(
               color: Colors.white,
               width: MediaQuery.of(context).size.width,
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
+                children: <Widget>[
                   SizedBox(
                     height: 25.0,
                     width: 25.0,

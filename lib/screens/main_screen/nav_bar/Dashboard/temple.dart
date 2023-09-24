@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -9,7 +8,6 @@ import 'package:hrms/screens/main_screen/nav_bar/Dashboard/templePart2.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
 import '../../../widget/CustomInputField.dart';
 import '../../../widget/CustomText.dart';
 import 'hospitalityPart2.dart';

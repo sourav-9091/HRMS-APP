@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
+  sdk: '>=2.18.6 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -74,7 +74,6 @@ dependencies:
   flutter_easyloading: ^3.0.5
   fluttertoast: ^8.2.1
   hexcolor: ^3.0.1
-  commons: ^0.2.3
   any_link_preview: ^3.0.0
   page_transition: ^2.0.9
   flutter_dotenv: ^5.0.2
@@ -121,7 +120,6 @@ flutter:
     - assets/student.png
     - assets/temple.png
     - assets/forgetPassword.png
-    - assets/meme.jpg
     - assets/dashboard/kiitImage.jpg
     - assets/dashboard/kimsImage.jpg
     - assets/dashboard/kissImage.jpg

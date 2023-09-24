@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hrms/main.dart';
 import 'package:hrms/repositories/repositories.dart';
-import 'package:hrms/screens/main_screen/nav_bar/mainNav.dart';
 import 'package:hrms/screens/main_screen/otp_verify_page.dart';
 import 'package:http/http.dart' as http;
 import '../../logic/auth_bloc/auth_bloc.dart';
@@ -17,12 +15,11 @@ class Register extends StatefulWidget {
   Register({Key? key, required this.userRepository}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _RegisterState createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-  final _MyBox = Hive.box('data');
+  final dataBox = Hive.box('data');
   bool isLoading = true;
   var email = TextEditingController();
 
@@ -61,7 +58,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    email.text = "${_MyBox.get("email")}";
+    email.text = "${dataBox.get("email")}";
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
@@ -163,14 +160,14 @@ class _RegisterState extends State<Register> {
                                     isLoading = false;
                                   });
                                   await sendOTP(
-                                    _MyBox.get('username'),
+                                    dataBox.get('username'),
                                   );
 
                                   setState(() {
                                     isLoading = true;
                                   });
 
-                                  if (_MyBox.get("otpSubmitStatus") ==
+                                  if (dataBox.get("otpSubmitStatus") ==
                                       "false") {
                                     const snackBar = SnackBar(
                                         content: Text(
@@ -179,13 +176,16 @@ class _RegisterState extends State<Register> {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(snackBar);
                                   }
-                                  if (_MyBox.get("otpSubmitStatus") == "true") {
+                                  
+                                  if (dataBox.get("otpSubmitStatus") ==
+                                      "true") {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: ((context) => (Otp(
                                               userRepository:
                                                   widget.userRepository,
-                                              username: _MyBox.get('username')
+                                              username: dataBox
+                                                  .get('username')
                                                   .toString(),
                                             ))),
                                       ),
@@ -242,6 +242,7 @@ Future<String> sendOTP(
         .post(Uri.parse("http://192.168.195.192:5000/api/auth/generate_otp"),
             headers: {"Content-Type": "application/json"}, body: body)
         .timeout(const Duration(seconds: 10), onTimeout: () {
+      print('Otp Request TimedOut');
       throw const SocketException('No Internet Connection');
     });
     if (response.statusCode == 200) {

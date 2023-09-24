@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
           builder: (context) => AlertDialog(
             title: const Text('Are You Sure ?'),
             content: const Text('Do you want to logout of this app?'),
-            actions: <Widget>[
+            actions: <Widget>[  
               TextButton(
                 onPressed: () {
                   BlocProvider.of<AuthenticationBloc>(context).add(
@@ -52,32 +52,16 @@ class _MainScreenState extends State<MainScreen> {
         false;
   }
 
-  // ignore: non_constant_identifier_names
-  final _MyBox = Hive.box('data');
+  final dataBox = Hive.box('data');
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    // return WillPopScope(
-    //   onWillPop: _onWillPop,
-    //   child: Scaffold(
-    //     key: _scaffoldKey,
-    //     body: SingleChildScrollView(
-    //       child: SizedBox(
-    //         height: MediaQuery.of(context).size.height,
-    //         width: MediaQuery.of(context).size.width,
-    //         child: Center(
-    //           child: getWidget(),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
     return getWidget();
   }
 
   getWidget() {
-    if (_MyBox.get("verifiedEmail").toString() == "false") {
+    if (dataBox.get("verifiedEmail").toString() == "false") {
       return Register(
         userRepository: widget.userRepository,
       );
@@ -85,7 +69,6 @@ class _MainScreenState extends State<MainScreen> {
       return MyApp(
         userRepository: widget.userRepository,
       );
-      // return const Register();
     }
   }
 }
