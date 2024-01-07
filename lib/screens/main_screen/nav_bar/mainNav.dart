@@ -61,6 +61,7 @@ class _MyAppState extends State<MyApp> {
         userRepository: widget.userRepository,
       ),
       DailyPage(),
+      History(),
       ProfilePage(),
     ];
     return MaterialApp(
@@ -99,6 +100,11 @@ class _MyAppState extends State<MyApp> {
                   selectedIcon: Icon(Icons.favorite),
                 ),
                 NavigationDestination(
+                  icon: Icon(Icons.home_outlined),
+                  label: 'History',
+                  selectedIcon: Icon(Icons.home),
+                ),
+                NavigationDestination(
                   icon: Icon(Icons.person_outline),
                   label: 'Profile',
                   selectedIcon: Icon(Icons.person),
@@ -114,6 +120,8 @@ class _MyAppState extends State<MyApp> {
       return HomeScreen(userRepository: widget.userRepository);
     } else if (selectedIndex == 1) {
       return _screen2;
+    } else if (selectedIndex == 2) {
+      return _screen3;
     }
     return _screen4;
   }

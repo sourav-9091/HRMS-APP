@@ -185,7 +185,7 @@ class _TEMPLEState extends State<TEMPLE> {
             centerTitle: true,
             backgroundColor: Colors.white,
             title: Text(
-              'HOSPITALITY FORM',
+              'TEMPLE FORM',
               style: TextStyle(color: Colors.black, fontSize: 25),
             )),
         backgroundColor: Colors.white,

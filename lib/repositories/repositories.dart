@@ -13,7 +13,7 @@ class UserRepository {
     if (value != null) {
       return true;
     } else {
-      return true;
+      return false;
     }
   }
 
@@ -31,18 +31,17 @@ class UserRepository {
     var body = json.encode(data);
     final _MyBox = Hive.box('data');
     var response = await http
-        .post(Uri.parse("http://192.168.195.192:5000/api/app/login"),
+        .post(Uri.parse("http://10.5.72.130:5000/api/app/login"),
             headers: {"Content-Type": "application/json"}, body: body)
         .timeout(const Duration(seconds: 10), onTimeout: () {
       return http.Response('Error', 408);
     });
-
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
       _MyBox.put("token", jsondata['token']);
 
       var userResponse = await http.get(
-          Uri.parse("http://192.168.195.192:5000/api/app/user/"),
+          Uri.parse("http://10.5.72.130:5000/api/app/user/"),
           headers: {'Authorization': 'Bearer ${_MyBox.get('token')}'});
 
       if (userResponse.statusCode == 200) {
@@ -79,7 +78,7 @@ class UserRepository {
   Future<String> email(String email) async {
     final _MyBox = Hive.box('data');
     var userResponse = await http.get(
-        Uri.parse("http://192.168.195.192:5000/api/app/user/"),
+        Uri.parse("http://10.5.72.130:5000/api/app/user/"),
         headers: {'Authorization': 'Bearer ${_MyBox.get('token')}'});
 
     if (userResponse.statusCode == 200) {

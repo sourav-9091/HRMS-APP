@@ -176,7 +176,7 @@ class _RegisterState extends State<Register> {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(snackBar);
                                   }
-                                  
+
                                   if (dataBox.get("otpSubmitStatus") ==
                                       "true") {
                                     Navigator.of(context).push(
@@ -239,9 +239,9 @@ Future<String> sendOTP(
 
   try {
     var response = await http
-        .post(Uri.parse("http://192.168.195.192:5000/api/auth/generate_otp"),
-            headers: {"Content-Type": "application/json"}, body: body)
-        .timeout(const Duration(seconds: 10), onTimeout: () {
+        .post(Uri.parse("http://10.5.72.130:5000/api/auth/generate_otp"),
+            headers: {"Content-Type": "application/json", 'Authorization': 'Bearer ${_MyBox.get('token')}'}, body: body)
+        .timeout(const Duration(seconds: 60), onTimeout: () {
       print('Otp Request TimedOut');
       throw const SocketException('No Internet Connection');
     });
